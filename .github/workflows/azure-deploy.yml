@@ -3,7 +3,7 @@ name: Build and Deploy Flask App to Azure Web App using OIDC
 on:
   push:
     branches:
-      - main  # Trigger deployment only on push to main branch
+      - main
 
 permissions:
   id-token: write
@@ -12,10 +12,10 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment: production  # uses environment secrets
+    environment: production  # Must match the GitHub environment name
 
     steps:
-    - name: Checkout repository
+    - name: Checkout code
       uses: actions/checkout@v4
 
     - name: Set up Python
@@ -32,12 +32,4 @@ jobs:
       uses: azure/login@v1
       with:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
-        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-    - name: Deploy to Azure Web App
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
-        slot-name: production
-        package: .
+        tenant-id: ${{ secrets.AZURE_TENANT_
