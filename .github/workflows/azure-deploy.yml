@@ -5,6 +5,7 @@ on:
     branches:
       - main
 
+# ✅ Needed for OIDC to work!
 permissions:
   id-token: write
   contents: read
